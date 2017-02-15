@@ -1,0 +1,61 @@
+\select@language {english}
+\contentsline {section}{List of Figures}{6}
+\contentsline {section}{List of Tables}{7}
+\contentsline {section}{\numberline {1}Abstract}{10}
+\contentsline {section}{\numberline {2}Introduction}{11}
+\contentsline {section}{\numberline {3}Options: Basic Concepts}{12}
+\contentsline {subsection}{\numberline {3.1}What is an Option?}{12}
+\contentsline {subsection}{\numberline {3.2}Why do options exist?}{13}
+\contentsline {subsubsection}{\numberline {3.2.1}Fundamental Theorems of Asset Pricing}{14}
+\contentsline {section}{\numberline {4}Data and Software}{15}
+\contentsline {section}{\numberline {5}Monte Carlo Methods}{16}
+\contentsline {subsection}{\numberline {5.1}Introduction}{16}
+\contentsline {subsection}{\numberline {5.2}Monte Carlo Integration}{16}
+\contentsline {subsection}{\numberline {5.3}Improve the quality}{17}
+\contentsline {subsubsection}{\numberline {5.3.1}Importance Sampling}{17}
+\contentsline {subsubsection}{\numberline {5.3.2}Antithetic variates}{17}
+\contentsline {subsubsection}{\numberline {5.3.3}Control variates}{18}
+\contentsline {subsubsection}{\numberline {5.3.4}Conditioning}{18}
+\contentsline {subsection}{\numberline {5.4}Monte Carlo for Option Pricing}{19}
+\contentsline {section}{\numberline {6}Black-Scholes Model}{20}
+\contentsline {subsection}{\numberline {6.1}Brownian Motion: the Basic of BS Model}{20}
+\contentsline {subsubsection}{\numberline {6.1.1}Distribution}{20}
+\contentsline {subsubsection}{\numberline {6.1.2}Properties of Brownian Motion}{21}
+\contentsline {paragraph}{\numberline {6.1.2.1}Filtration}{21}
+\contentsline {paragraph}{\numberline {6.1.2.2}Martingale property}{21}
+\contentsline {paragraph}{\numberline {6.1.2.3}Markovianity}{21}
+\contentsline {subsection}{\numberline {6.2}Stochastic Calculus: the mathematics behind the BS model}{21}
+\contentsline {subsubsection}{\numberline {6.2.1}It\={o}'s Lemma}{22}
+\contentsline {subsubsection}{\numberline {6.2.2}Properties}{22}
+\contentsline {subsubsection}{\numberline {6.2.3}It\={o} Formula for Brownian Motion}{23}
+\contentsline {subsubsection}{\numberline {6.2.4}Girsanov's Theorem}{23}
+\contentsline {subsection}{\numberline {6.3}The Model}{24}
+\contentsline {subsection}{\numberline {6.4}Implementation}{26}
+\contentsline {section}{\numberline {7}Heston model}{29}
+\contentsline {subsection}{\numberline {7.1}The Model}{29}
+\contentsline {subsection}{\numberline {7.2}Features of Stochastic Volatility Model}{33}
+\contentsline {subsection}{\numberline {7.3}Implementation}{33}
+\contentsline {section}{\numberline {8}Jump-Diffusion Model}{42}
+\contentsline {subsection}{\numberline {8.1}Poisson Process}{42}
+\contentsline {subsection}{\numberline {8.2}Properties of the Process}{43}
+\contentsline {subsubsection}{\numberline {8.2.1}Martingality}{43}
+\contentsline {subsubsection}{\numberline {8.2.2}Stationarity and Independence}{43}
+\contentsline {subsection}{\numberline {8.3}Mathematical construction of a Jump Process}{44}
+\contentsline {subsubsection}{\numberline {8.3.1}Process write-down}{44}
+\contentsline {subsubsection}{\numberline {8.3.2}Change of Measure}{44}
+\contentsline {subsection}{\numberline {8.4}Jump Process Option Pricing}{44}
+\contentsline {subsubsection}{\numberline {8.4.1}Asset driven by a Poisson process}{45}
+\contentsline {subsubsection}{\numberline {8.4.2}Asset Driven by a Brownian Motion and a Compound Poisson Process}{45}
+\contentsline {subsection}{\numberline {8.5}Implementation}{46}
+\contentsline {section}{\numberline {9}Fractal Framework}{50}
+\contentsline {subsection}{\numberline {9.1}Fractal Market Hypothesis}{50}
+\contentsline {subsection}{\numberline {9.2}Fractal Analysis}{52}
+\contentsline {subsubsection}{\numberline {9.2.1}Measuring Memory: Hurst and R/S}{52}
+\contentsline {subsubsection}{\numberline {9.2.2}How to perform and implement R/S analysis}{52}
+\contentsline {subsection}{\numberline {9.3}Implementation}{57}
+\contentsline {section}{\numberline {10}Results}{59}
+\contentsline {section}{\numberline {11}Conclusion}{60}
+\contentsline {section}{\numberline {12}Appendix}{61}
+\contentsline {subsection}{\numberline {12.1}Put-Call Parity}{61}
+\contentsline {subsection}{\numberline {12.2}Jump Process Pricing Formula Derivation}{62}
+\contentsline {section}{References}{64}
