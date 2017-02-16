@@ -19,11 +19,9 @@
 \contentsline {subsection}{\numberline {5.4}Monte Carlo for Option Pricing}{19}
 \contentsline {section}{\numberline {6}Black-Scholes Model}{20}
 \contentsline {subsection}{\numberline {6.1}Brownian Motion: the Basic of BS Model}{20}
-\contentsline {subsubsection}{\numberline {6.1.1}Distribution}{20}
-\contentsline {subsubsection}{\numberline {6.1.2}Properties of Brownian Motion}{21}
-\contentsline {paragraph}{\numberline {6.1.2.1}Filtration}{21}
-\contentsline {paragraph}{\numberline {6.1.2.2}Martingale property}{21}
-\contentsline {paragraph}{\numberline {6.1.2.3}Markovianity}{21}
+\contentsline {subsubsection}{\numberline {6.1.1}Properties of Brownian Motion}{21}
+\contentsline {paragraph}{\numberline {6.1.1.1}Filtration}{21}
+\contentsline {paragraph}{\numberline {6.1.1.2}Martingale property and Markovianity}{21}
 \contentsline {subsection}{\numberline {6.2}Stochastic Calculus: the mathematics behind the BS model}{21}
 \contentsline {subsubsection}{\numberline {6.2.1}It\={o}'s Lemma}{22}
 \contentsline {subsubsection}{\numberline {6.2.2}Properties}{22}
@@ -31,10 +29,10 @@
 \contentsline {subsubsection}{\numberline {6.2.4}Girsanov's Theorem}{23}
 \contentsline {subsection}{\numberline {6.3}The Model}{24}
 \contentsline {subsection}{\numberline {6.4}Implementation}{26}
-\contentsline {section}{\numberline {7}Heston model}{29}
-\contentsline {subsection}{\numberline {7.1}The Model}{29}
-\contentsline {subsection}{\numberline {7.2}Features of Stochastic Volatility Model}{33}
-\contentsline {subsection}{\numberline {7.3}Implementation}{33}
+\contentsline {section}{\numberline {7}Heston model}{30}
+\contentsline {subsection}{\numberline {7.1}The Model}{30}
+\contentsline {subsection}{\numberline {7.2}Features of Stochastic Volatility Model}{34}
+\contentsline {subsection}{\numberline {7.3}Implementation}{34}
 \contentsline {section}{\numberline {8}Jump-Diffusion Model}{42}
 \contentsline {subsection}{\numberline {8.1}Poisson Process}{42}
 \contentsline {subsection}{\numberline {8.2}Properties of the Process}{43}
@@ -43,7 +41,7 @@
 \contentsline {subsection}{\numberline {8.3}Mathematical construction of a Jump Process}{44}
 \contentsline {subsubsection}{\numberline {8.3.1}Process write-down}{44}
 \contentsline {subsubsection}{\numberline {8.3.2}Change of Measure}{44}
-\contentsline {subsection}{\numberline {8.4}Jump Process Option Pricing}{44}
+\contentsline {subsection}{\numberline {8.4}Jump Process Option Pricing}{45}
 \contentsline {subsubsection}{\numberline {8.4.1}Asset driven by a Poisson process}{45}
 \contentsline {subsubsection}{\numberline {8.4.2}Asset Driven by a Brownian Motion and a Compound Poisson Process}{45}
 \contentsline {subsection}{\numberline {8.5}Implementation}{46}

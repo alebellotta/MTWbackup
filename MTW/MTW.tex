@@ -89,7 +89,7 @@
 \newcommand{\horrule}[1]{\rule{\linewidth}{#1}} % Create horizontal rule command with 1 argument of height
 
 \fancyhf{}% Clear all headers/footers
-\fancyhead[L]{Option Pricing with Jumps and Fractals Processes}\fancyhead[C]{}\fancyhead[R]{Alessandro Bellotta}
+\fancyhead[L]{Master Thesis}\fancyhead[C]{}\fancyhead[R]{Alessandro Bellotta}
 \fancyfoot[L]{USI - Università della Svizzera Italiana, MSc in Finance}\fancyfoot[C]{}\fancyfoot[R]{\thepage}
 \pagestyle{fancy}
 \thispagestyle{plain}
@@ -103,7 +103,7 @@
 \textsc{MSc in Finance} \\[100pt]
 \textsc{Master Thesis}\\ [50pt]
 \horrule{2pt} \\[0.5cm] % Thin top horizontal rule
-\huge Option Pricing with Jumps and Fractals Processes \\ % The assignment title
+\huge Option Pricing with Stochastic Volatility, Jumps and Fractals Processes \\ % The assignment title
 \horrule{2pt} \\[0.5cm] % Thick bottom horizontal rule
 }
 \author{Alessandro Bellotta\\
@@ -153,11 +153,11 @@
 % ABSTRACT
 %------------------------	
 \section{Abstract}
-The aim of this thesis is to develop a broad analysis on option pricing models such as Black-Scholes-Merton model, Heston stochastic volatility model and Merton's Jump-Diffusion model. \par
+The aim of this thesis is to develop a broad analysis on option pricing models such as Black-Scholes model, Heston stochastic volatility model and jump-diffusion model. \par
 In addition we want also to analyse a non-ordinary theory that is called Fractal Market Hypothesis in which we also price options with, the so-called, Fractal Brownian Motion. \par
-What we want to show is a computational approach to this field: we start from theoretical and mathematical formulations and then we apply IT models in order to implement the theory; the choosen software is R.
-The aim is not only to plug-in numbers in already-built function but to develop step-by-step the theory and then to create algorithms to achieve the task (pricing) that are calibrated on real-world data and that are able to adapt when another input is chosen.	\par
-In the end, we try to deliver an idea of trading strategies since, what we are calling pricing, is, for the sake of preciseness, a computation of future expected values. 
+What we want to show is a computational approach to this field: we start from theoretical and mathematical formulations and then we apply IT models in order to implement the theory; the choosen software is R.	\par
+The aim is not only to plug-in numbers in already-built function but also to develop step-by-step the theory and then to create algorithms to achieve the task (pricing) that are calibrated on real-world data and that are able to adapt when another input is chosen.	\par
+What we are calling pricing, is, for the sake of preciseness, a computation of future expected values; starting from this concept, an investor could implement its own strategy. 
 
 \afterpage{\blankpage}
 \newpage
@@ -168,14 +168,14 @@ In the end, we try to deliver an idea of trading strategies since, what we are c
 \section{Introduction}
 This paragraph is aimed to introduce the following work.	\par
 What we want to achieve is both an academic and practical analysis and, in addition, a not-so-conventional approach to a fundamental financial field.	\par
-Our objective is to deliver a broad analysis about option pricing and to analyse something that is not mainstream and widespread in the finance field.	\par
-First we want to present models from the theory and from a mathematical perspective. In order to achieve this goal, we will deliver a broad but concise analysis of models: model formulation, useful mathematical formulation, properties and derivation. \par
-In a second step, we explain what was done in order to implement the theory with a computational approach: here, we explain formulae, methodologies, calibration and we explain the results that we get.	\par
+Our objective is to deliver a broad analysis about option pricing and to analyse something that is not mainstream and widespread.	\par
+First we want to present models from the theory and from a mathematical perspective. In order to achieve this goal, we will deliver a broad but concise analysis of models: model formulation, useful mathematics, properties and derivation. \par
+In a second step, we explain what was done in order to implement the theory with a computational approach: here, we explain formulae, methodologies, calibration and results that we get.	\par
 In the third step we provide code chunks that are useful in order to understand how the analysis evolved.	\par
 How is this thesis built? \par
 First of all we define an option: to be more precise, in this thesis we deal with European Call Option. \par
-Then, we start with models: the Black-Scholes-Merton model, the Heston model, the Merton's Jump-Diffusion model.\par
-In the end we analyse the Fractal Market Hypothesis as an alternative to the Efficient Market Hypothesis: in order to do this we first define "fractal" with some examples, then we perform a well-known analysis in this field called "Rescaled Range Analysis" that aims to find the famous Hurst Exponent ($H$) and, in the end, we price a call option by applying this "Fractal" concept.	\par
+Then, we start with models: the Black-Scholes model, the Heston model, the jump-diffusion model.\par
+In the end we analyse the Fractal Market Hypothesis as an alternative to the Efficient Market Hypothesis: in order to do this we first define "fractal" with some examples, then we perform a "Rescaled Range Analysis" that aims to find the famous Hurst Exponent ($H$) and, in the end, we price a call option by applying fractal Brownian motion.	\par
 In addition, we deliver an analysis in a Monte Carlo framework and an appendix with mathematics useful for this work.
 
 \afterpage{\blankpage}
@@ -206,7 +206,7 @@ In this thesis, we will analyse a specific type of option: European call option.
 When we deal with pricing, we must take into account some variables; in addition to the over mentioned $S$ and $K$ we have: $\tau$ which is the time to maturity, $\sigma$ which is the volatility of the underlying and $r$ which is the risk-free rate. Then, $C$ is the value of a call option which depends on all these variables.	\par
 
 Once defined the option payoff, it is possible to show that the price of the option can be represented as a conditional expectation of the payoff under the risk-neutral measure \cite{shreve}. \par  
-Let's call $X(T)$ the payoff of a European call optio $X(T) = (S(T) - K)^+$.	\par
+Let's call $X(T)$ the payoff of a European call option $X(T) = (S(T) - K)^+$.	\par
 Define the random variable $V(T)$ representing the payoff at time $T$ of the option. \par
 Almost surely, $X(T) = V(T)$ in order to prevent arbitrage opportunity.
 Under the risk-neutral measure:
@@ -233,8 +233,8 @@ This is the risk-neutral pricing formula.
 \subsection{Why do options exist?}
 There are two main reasons to use options: speculation and hedging.	\par
 We can see the first one as a betting on the market: if an investor buys (sells) call options to speculate, he is betting that the market will go up (down) in a specific time frame, the maturity of the option, and with a minimum amount of magnitude, at least to profit above commissions. \par
-When we deal with hedging we can imagine options as an insurance against some events in a trade. Hedging is widely used by large financial institution but it is also useful for a retail investor. 	\par
-We can not hedge without the knowledge of Greeks. Greeks are the basic for riskmetrics in option trading strategies.
+When we deal with hedging we can imagine options as an insurance against some events in a trade. Hedging is widely used by large financial institution but it is also useful for retail investors. 	\par
+We can not hedge without the knowledge of Greeks. Greeks are fundamental for riskmetrics in option trading strategies.
 Here's a brief list of the most important Greeks: 
 	\begin{itemize}
 		\item Delta. $\Delta$ measures the sensitivity to changes in the underlying asset's price. $\Delta = \frac{\delta C} {\delta S}$.
@@ -254,7 +254,8 @@ These options give the holder the right but not the obligation to purchase stock
 \subsubsection{Fundamental Theorems of Asset Pricing}
 The following two statements are the fundamental assumptions when dealing with asset pricing. \par
 The first fundamental theorem of asset pricing states that if a market model has a risk-neutral probability measure, then it does not admit arbitrage.\par
-The second fundamental theorem of asset pricing states that taking into account a market model that has a risk-neutral probability measure it is possible to affirm that it is complete if and only if the risk-neutral probability measure is unique. 
+The second fundamental theorem of asset pricing states that taking into account a market model that has a risk-neutral probability measure it is possible to affirm that it is complete if and only if the risk-neutral probability measure is unique. \par
+We have to bear in mind these two concepts in all our work since, in order to deploy alternative expected values computation, we need to deal with arbitrage. 
 
 
 
@@ -355,7 +356,7 @@ and, due to the Central Limit Theorem, for large $n$,
 \subsection{Improve the quality} 
 There are two main approaches in order to improve the quality of the estimation: the first is to increase the number of simulation, $n$: it improves the estimate, but if we keep adding simulation the improvement curve becomes flat.	\par
 The second is to decrease the volatility of simulation, $\sigma$: in order to achieve this, we can apply various variance reduction techniques: Importance Sampling, Antithetic Variance, Control Variance, Conditional Monte Carlo.
-In the following subsection we show how to use variance reduction techniques. \cite{casella2010}
+In the following subsection we show how to use two of these variance reduction techniques. \cite{casella2010}
 
 \subsubsection{Importance Sampling}
 This method is based on importance functions which are fictitious distribution, instead of the original ones. Evaluating \ref{eq:1} by drawing from $f$ is not optimal since the use of other distribution can improve the variance of the estimator.	\par
@@ -490,8 +491,8 @@ In the next sections we develop the basic concepts and the mathematics behind th
 
 \subsection{Brownian Motion: the Basic of BS Model}
 The Brownian Motion was firstly theorised and observed by the botanist Robert Brown in 1827 and it was defined, by Richard Feynman \cite{feynman}, as: \textit{"the random motion of particles suspended in a fluid resulting from their collision with the fast-moving atoms or molecules in the gas or liquid"}.	\par
-When we deal with finance, we refer to this movement as Wiener Process which is a continuous-time stochastic process. It is useful in option pricing and, as a result, in the Black-Scholes model (and other models after that).	\par
-Now, we define mathematically what it is a Brownian Motion \cite{shreve}.	\par
+When we deal with finance, we refer to this movement as Wiener process which is a continuous-time stochastic process. It is useful in option pricing and, as a result, in the Black-Scholes model (and other models after that).	\par
+Now, we define mathematically what a Brownian Motion is \cite{shreve}.	\par
 Let's define a probability space ($\Omega, \mathcal{F}, \mathcal{P}$). For each $\omega  \in \Omega$, suppose there is a continuous function ${W}(t)$ that satisfies the initial condition ${W}(0) = 0$ and that depends on $\omega$. Then ${W}(t)$, $t\geq0$, is a Brownian Motion if for all $0 = t_0<t_1<...<t_m$, the increments
 
 		\begin{equation}	
@@ -507,7 +508,6 @@ are independent and each of this increments is normally distributed with
 		\end{aligned}
 		\end{equation}
 
-\subsubsection{Distribution}
 Because the increments are independent and normally distributed, these random variables are jointly normally distributed. \par
 The joint Gaussian distribution is determined by its means, variances and covariances. Each of the variables ${W}(t_i)$ has mean zero and variance $t_i$. For any two times, $0 \leq s \leq t$, the covariance of ${W}(s)$ and ${W}(t)$ is
 
@@ -530,7 +530,7 @@ Let ($\Omega, \mathcal{F}, \mathcal{P}$) be the probability space on which the B
 		\item \textbf{Independence of future increments}: any increment of the Brownian Motion after time $t$ is independent of the information available at time $t$.
 	\end{itemize}
 
-\paragraph{Martingale property}
+\paragraph{Martingale property and Markovianity}
 A Martingale is a stochastic process for which the expectation of the next value is equal to the present observed value.	\par
 Brownian Motion is a martingale. \par 
 Let $ 0 \leq s \leq t$ be given. Then
@@ -544,7 +544,6 @@ Let $ 0 \leq s \leq t$ be given. Then
 		\end{aligned}
 		\end{equation}
 
-\paragraph{Markovianity}
 A Markov Process is a random process whose future probabilities are determined by its most recent values \cite{papoulis} \cite{weisstein} . \par
 A stochastic process $x(t)$ is called Markov if for every $n$ and $t_1<t_2...<t_n$, we have
 	\begin{equation}
@@ -552,8 +551,6 @@ A stochastic process $x(t)$ is called Markov if for every $n$ and $t_1<t_2...<t_
 	\end{equation}
 where $P$ is the probability operator.
 Let ($\Omega, \mathcal{F}, \mathcal{P}$) be a Brownian Motion and let $\mathcal{F}(t), t \geq 0$, be a filtration for this Brownian Motion. Then $W(t), t \geq 0$, is a Markov process.
-
-
 
 \subsection{Stochastic Calculus: the mathematics behind the BS model}
 In this section we deal with stochastic calculus by defining It\={o} integrals and their properties: these are useful feature when we want to model asset values in continuous-time \cite{bjork}.
@@ -611,7 +608,7 @@ Let $T$ be a positive constant and let $\Delta(t), 0 \leq t \leq T$, be an adapt
 	\end{itemize}
 
 \subsubsection{It\={o} Formula for Brownian Motion}
-Here, we want to deliver the starting point for the formal It\={o} formula when we deal with brownian motion. What we want to highlight is that the following relation holds with probability one. \par
+Here, we want to deliver the starting point for the formal It\={o} formula when we deal with Brownian motion. What we want to highlight is that the following relation holds with probability one. \par
 
 Let $f(t,X(t))$ be a function for which the partial derivatives $f_t (t,X(t)), f_x (t,X(t))$ and $f_{xx}(t, X(t))$, are defined and continuous, and let $W(t)$ be a Brownian Motion.\par
 Then, for every $t$, 
@@ -757,7 +754,7 @@ To rewrite it in a more practical way:
 Then, it is possible to show that once we get the call price, we can obtain the put price through the put-call parity; we give an example in the Appendix.
 
 \subsection{Implementation}
-In this section we analyse the way in which Black-Scholes option pricing and, consequently, Monte Carlo Methods was implemented.	\par
+In this section we analyse the way in which Black-Scholes option pricing and, consequently, Monte Carlo methods was implemented.	\par
 As a rule (here and in the following implementation), we apply first the the already built-in function in order to get to the option price. In this case we decide to use the $fOption$ package which is an Rmetrics package which includes a collection of function to valuate basic option. In order to price in the Black-Scholes framework, we use the function $GBSOption$ that stands for Generalized Black Scholes Option. In order to work, it needs some parameters which are: $TypeFlag$ is the type of option (call or put), $S$ is the underlying value at $t=0$, $X$ is the strike price (also called $K$), $Time$ is the time-to-maturity, $r$ is the risk-free rate, $b$ is the annualized cost-of-carry rate,  $sigma$ is the volatility. 
 
 \begin{lstlisting}[caption = {Black-Scholes Built-In Function}]
@@ -775,7 +772,7 @@ BScall=function(S0,K,sigma,T,r){
 }
 \end{lstlisting}
 
-From there on, we apply the theory from both Black-Scholes model and Monte Carlo Method. \par
+From there on, we apply the theory from both Black-Scholes model and Monte Carlo methods. \par
 The following code represents the Crude Monte Carlo Simulation for Black-Scholes Model Pricing.
 
 \begin{lstlisting}[caption = {Black-Scholes Crude Monte Carlo}]
@@ -787,7 +784,7 @@ BScallMC=function(S0,K,sigma,T,r,n){
 \end{lstlisting}
 
 The next one is the Black-Scholes pricing Monte Carlo Simulation with Antithetic Variance Control. Here, we reduce variance by introducing negative correlation between the two paths.
-
+\newpage
 \begin{lstlisting}[caption = {Black-Scholes Monte Carlo Antithetic Variance}]
 BScallMCav=function(S0,K,sigma,T,r,n){
   eps=rnorm(n)
@@ -835,7 +832,7 @@ We decide to define the parameters as follows:
 		Sb &= K
 	\end{aligned}
 	\end{equation}
-\newpage
+
 The results are collected in the following table:
 
 \begin{table}[h]
@@ -854,6 +851,7 @@ The results are collected in the following table:
 \end{center}
 \end{table}
 
+\newpage
 In the following table are presented the results obtain by applying on the code a benchmarking procedure; what is shown are measures of computational speed.
 
 
@@ -887,7 +885,7 @@ In the following table are presented the results obtain by applying on the code 
 
 
 
-\afterpage{\blankpage}
+
 \newpage
 %-------------------------
 % HESTON MODEL
@@ -913,17 +911,17 @@ Let's assume that the underlying asset price follows this process:
 	\end{equation}
 where $W_1(t)$ is a Brownian Motion. Now, if the volatility follows an Ornstein-Uhlenbeck process, we can write the process of the volatility as follows:
 	\begin{equation}
-		d \sqrt{v(t)} = -\beta \sqrt{v(t)} dt + \delta dz_2(t).
+		d \sqrt{v(t)} = -\beta \sqrt{v(t)} dt + \delta dW_2(t).
 	\end{equation}
-	where $corr(z_1(t), z_2(t)) = \rho$.
+	where $corr(W_1(t), W_2(t)) = \rho$.
 
 By applying It\={o}'s calculus, it is possible to show that the process followed by $v(t)$ is:
 	\begin{equation}
-		dv(t) = [\delta^2 - 2 \beta v(t)]dt + 2 \delta \sqrt{v(t)} dz_2(t)
+		dv(t) = [\delta^2 - 2 \beta v(t)]dt + 2 \delta \sqrt{v(t)} dW_2(t)
 	\end{equation}
 Then, by reparametrization, we can write the above equation as the well-known square-root process from Cox, Ingersoll and Ross(1985) \cite{cir} 
 	\begin{equation}
-		dv(t) = \kappa[\theta - v(t)] dt + \sigma \sqrt{v(t)}dz_2(t)
+		dv(t) = \kappa[\theta - v(t)] dt + \sigma \sqrt{v(t)}dW_2(t)
 	\end{equation}
 where $\kappa$ is the volatility mean-reversion speed, it represents how fast the volatility moves towards its long-run mean, $\theta$ is the parameter representing the long-run mean of volatility and $\sigma$ is the volatility of volatility.
 Let's define the price of a discount bond:
@@ -982,8 +980,9 @@ for $j=1, 2$, where
 	
 $P_j$ are the risk-neutral conditional probabilities of the options to expire in-the-money: these probabilities are not directly in closed-form. \par
 But, we know that the process is exponentially affine thus, we also know that, once we get the characteristic functions, we can invert them in order to find the desired probabilities. \par
-Affine processes are a class of time-homogeneous Markov processes. The logarithm of the characteristic function of the transition distribution $pt(x, ·)$ of such a process is affine with respect to the initial state. The coefficients defining this affine relationship are the solutions of a family of ordinary differential equations (ODEs). We classify these ODEs, ?generalized Riccati equations?, by their parameters, and state the precise set of admissible parameters for which there exists a unique associated regular affine process \cite{dfs}.
-Here, we show the passages in order to get to a closed-form solution.
+Affine processes are a class of time-homogeneous Markov processes. The logarithm of the characteristic function of the transition distribution $pt(x, ·)$ of such a process is affine with respect to the initial state. \par
+The coefficients defining this affine relationship are the solutions of a family of ordinary differential equations (ODEs). We classify these ODEs, called generalized Riccati equations, by their parameters, and state the precise set of admissible parameters for which there exists a unique associated regular affine process \cite{dfs}.
+Here, we show the passages in order to get to a closed-form solution. \par
 Assume that $x(t)$ and $v(t)$ follow the aforementioned risk-neutral process. Let's consider any twice-differentiable function $f(x, v, t)$ that is a conditional expectation of $x$ and $v$ at $T \leq t$, $g(x(T), v(T))$:
 
 	\begin{equation} \label{eq:712}
@@ -1069,7 +1068,7 @@ The parameter $\sigma$ controls the volatility of volatility. When $\sigma = 0$,
 
 \subsection{Implementation}
 In this section we analyse the way in which the Heston option pricing model was implemented. \par
-The common starting point is to price an option with built-in function. In this case, we decide to go for the NMOF package that stands for Numerical Methods and Optimization in Finance. Inside this package, it is possible to find a function called  $callHestoncf$ which computes the price of a European Call under the Heston model. In order to work, it needs some parameters: $S$ is the current stock price, $X$ is the strike price, $tau$ is the time to maturity, $r$ is the risk-free rate, $q$ is the dividend rate, $v0$ is the current variance, $vT$ is the long-run variance $rho$ is the correlation between spot and variance, $k$ is the speed of mean-reversion $sigma$ is the volatility of variance. \par
+The common starting point is to price an option with built-in function. In this case, we decide to go for the $NMOF$ package that stands for Numerical Methods and Optimization in Finance. Inside this package, it is possible to find a function called  $callHestoncf$ which computes the price of a European Call under the Heston model. In order to work, it needs some parameters: $S$ is the current stock price, $X$ is the strike price, $tau$ is the time to maturity, $r$ is the risk-free rate, $q$ is the dividend rate, $v0$ is the current variance, $vT$ is the long-run variance $rho$ is the correlation between spot and variance, $k$ is the speed of mean-reversion $sigma$ is the volatility of variance. \par
 
 \begin{lstlisting}[caption={Heston Built-In Function}]
 callHestoncf(S, X, tau, r, q, v0, vT, rho, k, sigma)
@@ -1185,7 +1184,7 @@ $I_q(\cdot)$ is the modified Bessel function of the first kind of order $q$,
 		I_q(x) = \sum_{k=0}^\infty \frac{x}{2}^{2\kappa+q} \frac{1}{\kappa! \Gamma(k+q+1)}
 	\end{equation}
 
-where $\Gamma (\cdot)$ is the Gamma function of the type: $\Gamma(z) = \int_0^\infty x^{z-1} e^{-x} dx$.
+where $\Gamma (\cdot)$ is the Gamma function of the type: $\Gamma(z) = \int_0^\infty x^{z-1} e^{-x} dx$. \par
 In our implementation, we use the exponential rescaled version of the Bessel Function in R because, otherwise, the function tends to explode. In order to prevent overflow, we use a modified version that computes the exponentially rescaled Bessel function using an asymptotic expansion. \par
 
 \begin{lstlisting}[caption = Bessel Function]
@@ -1241,6 +1240,7 @@ We give the fitted Garch parameters values as starting condition for the paramet
 	theta1 = as.numeric(unlist(garchpara$coef[1]))*theta2          # k*long run mean
 	theta3 = sqrt(2*theta1)-as.numeric(unlist(garchpara$coef[3]))  # volatility of volatility
 \end{lstlisting}
+\newpage
 With these parameters we simulate the volatility by using the $ornstein\_uhlenbeck$ function:
 \begin{lstlisting}[caption = Simulation of volatility matrix]
 OU <- ornstein_uhlenbeck(T.t, nstep, nsim, theta1, theta2, theta3, x0) 
@@ -1257,14 +1257,14 @@ This image represents the simulated paths and the outcomes of the volatility sim
 Then, we calibrate the parameters through maximum likelihood estimation.
 
 \begin{lstlisting}[caption = Heston parameters calibration]
-X = V[1,]
-fit = mle(CIR.lik, start = list(theta1 = theta1, theta2 = theta2, theta3 = theta3), method ="BFGS")
-fit
+X = sde.sim (X0 =.1 , model ="CIR", theta =c(theta1, theta2 , theta3), N =2500 , delta =0.1)
+fit = mle(CIR.lik , start = list (theta1 =.1 , theta2 =.1 , theta3 =.3), 
+          method ="L-BFGS-B", lower = c(0.001, 0.001, 0.001), upper =c(1 ,1 ,1))
 long_run_mean = fit@coef[1]/fit@coef[2]
 k = fit@coef[2]
 sigma = fit@coef[3]
-2*k*long_run_mean > sigma^2 # Check if the condition holds: TRUE
-OU = ornstein_uhlenbeck(T.t, nstep, nsim, theta1 = fit@coef[1], theta2 = fit@coef[2], theta3 = fit@coef[3], x0)
+2*k*long_run_mean > sigma^2 # TRUE
+OU = ornstein_uhlenbeck(T.t, nstep, nsim, theta1 <- fit@coef[1], theta2 <- fit@coef[2], theta3 <- fit@coef[3], x0)
 V = OU$X
 Z.V = OU$Z
 \end{lstlisting}
@@ -1282,68 +1282,40 @@ kappa = unlist(as.numeric(fit@coef[2]))               #Mean-reversion speed
 volvol = unlist(as.numeric(fit@coef[3])) 			#Volatility of volatility
 theta = unlist(as.numeric(fit@coef[1]/fit@coef[2]))   #Long-term variance
 \end{lstlisting}
-We simulate the shocks
-\begin{lstlisting}[caption = Heston simulation of the shocks]
+We simulate the shocks, recall the volatility simulation and the asset path simulation
+\begin{lstlisting}[caption = Heston Monte Carlo Simulation]
 shocks = simshocks(n =  n,
                     horizon =  horizon,
                     frequency =  freq,
                     method = "anti",
                     family = 1, par =  rho)
+sim.vol = Z.V
+sim.price = assetpath
 \end{lstlisting}
 
-We recall the volatility simulation as follows:
-\begin{lstlisting}[caption = Volatility for pricing]
-sim.vol = simdiff(n =  n, 
-			horizon =  horizon,
-                   	frequency =  freq,
-			model = "CIR", x0 =  V0,
-                   	theta1 =  kappa*theta, 
-			theta2 =  kappa,
-                   	theta3 =  volvol, 
-			eps =  shocks[[1]])
-\end{lstlisting}
-We simulate the underlying price
-\begin{lstlisting}[caption = Price simulation]
-sim.price <- simdiff(n = n, horizon = horizon,
-                     frequency = freq, model = "GBM", x0 = S0,
-                     theta1 = r0, theta2 = sqrt(sim.vol),
-                     eps = shocks[[2]])
-\end{lstlisting}
+
 Then, we price and get the analytics for the option
-\begin{lstlisting}[caption = Heston option price and analytics]
+\begin{lstlisting}[caption = Heston Option Price]
 # Stock price at maturity
-S_T <- sim.price[nrow(sim.price), ]
+S_T = sim.price[nrow(sim.price), ]
 
 ### Monte Carlo prices
 #### Estimated Monte Carlo price
-discounted.payoff <- function(x)
+discounted.payoff = function(x)
 {
   (S_T - x)*(S_T - x > 0)*exp(-r0*horizon)
 }
-mcprices <- sapply(strikes, function(x)
+mcprices = sapply(strikes, function(x)
   mean(discounted.payoff(x)))
 
-#### 95% Confidence interval around the estimation
-mcprices95 <- sapply(strikes,  function(x)
-  t.test(discounted.payoff(x),
-         conf.level = 0.95)$conf.int)
-
-#### 'Analytical' prices given by 'callHestoncf'
-pricesAnalytic <- sapply(strikes, function(x)
-  callHestoncf(S = S0, X = x, tau = horizon,
-               r = r0, q = 0, v0 = V0, vT = theta,
-               rho = rho, k = kappa, sigma = volvol))
-
-HestonCall <- data.frame(cbind(strikes, mcprices,
-                            t(mcprices95), pricesAnalytic))
-colnames(HestonCall) <- c("strikes", "mcprices", "lower95",
-                       "upper95", "pricesAnalytic")
+HestonCall <- data.frame(cbind(strikes, mcprices)
+colnames(HestonCall) <- c("strikes", "mcprices")
 
 print(HestonCall)
-
 \end{lstlisting}
+
+\newpage
  This is the procedure used in the implementation of the Heston model. It is not only based on merely apply the theory but also on analysing parametrisation and calibration problems.
- \newpage
  
 The following table aims to deliver the performance, speed and accuracy, of the algorithms.
 
@@ -1378,29 +1350,6 @@ As shown, the Monte Carlo version of the Heston formula is faster than the Inver
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-\afterpage{\blankpage}
 \newpage
 %-----------------------------------------------------------------------------	
 %-----------			JUMP PROCESS	  ----------------------	
@@ -1408,7 +1357,7 @@ As shown, the Monte Carlo version of the Heston formula is faster than the Inver
 \section{Jump-Diffusion Model}
 Starting from Black-Scholes model, Merton derives a more realistic view of the processes underlying stock price movements. As he stated, an issue of the BS model is that one of their assumption was that trading occurs in continuous time and also that stock prices follow a continuous sample path. It could be a good asymptotic approximation to the discrete-time solution.	\par
 The validity of BS formula depends on the satisfaction of a "local" Markov property: in the short-term the stock price can change by a small amount only.	\par 
-A solution to this problem is to assume a process that allows for extraordinary price changes: the Jump Process.
+A solution to this problem is to assume a process that allows for extraordinary price changes: the jump process.
 
 \subsection{Poisson Process}
 Let $\tau$ be a random variable with density
@@ -1469,7 +1418,7 @@ The mean of $Q(t)$ is $\beta \lambda t$ since we have $\lambda t$ jumps in the t
 		\begin{equation}
 			Q(t) - \beta \lambda t
 		\end{equation}
-The compound process is a martingale.	
+Also the compound process is a martingale.	
 
 	\subsubsection{Stationarity and Independence}
 	Let $N(t)$ be a Poisson process with intensity $\lambda > 0$. Then the increments
@@ -1481,7 +1430,7 @@ The compound process is a martingale.
 			P\{N(t_{j+1}) - N(t_j) = k\} = \frac{\lambda^k (t_{j+1} - t_j)^k}{k!} e^{-\lambda(t_{j+1} - t_j)}, \hspace {0.5cm} k=0,1,...
 		\end{equation}
 	
-	Now, let $Q(t)$ be a Compound Poisson Process. The increments
+	Now, let $Q(t)$ be a compound Poisson process. The increments
 		\begin{equation}
 			Q(t_1) - Q(t_0), Q(t_2) - Q(t_1), ..., Q(t_n) - Q(t_{n-1})
 		\end{equation}
@@ -1520,6 +1469,7 @@ Once defined the Poisson process $N(t)$ and the probability space ($\Omega, \mat
 	\end{equation}
 We fix $T >0 $ and we use $Z(t)$ to change to a new measure $\widetilde{P}$ under which $N(t)$ has intensity $\widetilde\lambda$.
 
+\newpage
 \subsection{Jump Process Option Pricing}
 In this section we deal with pricing a European Call option when jumps occur in the underlying asset process. We can observe two different kinds of processes: in the first the asset is driven by a single Poisson process, in the second the underlying asset is driven by a Brownian motion and a Poisson process.
 	
@@ -1561,16 +1511,16 @@ In the practical part we deal only with the semi-closed form solution approach.
 
 \subsection{Implementation}
 In this section we analyse the way in which jump process option pricing theory was implemented. \par
-As always, the basic approach would have been to use the built-in function. In this case, we decide to go for the NMOF package that stands for Numerical Methods and Optimization in Finance. Inside this package, it is possible to find a function called  $callMerton$ which computes the price of a European Call under Merton's jump-diffusion model. In order to work, it needs some parameters: $S$ is the current stock price, $X$ is the strike price, $tau$ is the time to maturity, $r$ is the risk-free rate, $q$ is the dividend rate, $\sigma$ is the variance, $\lambda$ is the jump intensity, $muJ$ is the mean size of the jumps, $vJ$ is the variance of the size of log jumps, $N$ is the number of jumps.  \par
+As always, the basic approach would have been to use the built-in function. In this case, we decide to go for the $NMOF$ package that stands for Numerical Methods and Optimization in Finance. Inside this package, it is possible to find a function called  $callMerton$ which computes the price of a European Call under Merton's jump-diffusion model. In order to work, it needs some parameters: $S$ is the current stock price, $X$ is the strike price, $tau$ is the time to maturity, $r$ is the risk-free rate, $q$ is the dividend rate, $\sigma$ is the variance, $\lambda$ is the jump intensity, $muJ$ is the mean size of the jumps, $vJ$ is the variance of the size of log jumps, $N$ is the number of jumps.  \par
 
 \begin{lstlisting}[caption = Jump Built-In Function]
 callMerton(S, K, T, r, 0, sigma, lambda, muJ, vJ, N, TRUE)
 \end{lstlisting}
 
-It works well as a pricing exercise: the standard approach is to draw random values from a Poisson distribution and then to compute $muJ$ and $vJ$. \par
+It works well as a pricing exercise: the standard approach is to draw random values from a Poisson distribution and then to compute $muJ$ and $vJ$ as mean and variance of the jump series. \par
 Here, for a real-world application, as we want to develop, the problem that we faced was that, by going on the straightforward path, we can obtain positive drawings only: it means that we compute moments only from positive numbers and it is not possible to understand whether the jump is positive or negative. \par
-Then, starting from the already existing function, we decide to develop an algorithm that, starting from an historical time series of a stock, and, given the fact that we can use daily prices only (so that it is not possible to observe intraday jumps), it first computes jumps and theirs moments and then prices a European call option on the over mentioned underlying assuming a Jump process. \par
-In order to analyse jumps in the time series, we build an algorithm that is basically a counter of non-ordinary price movements. A return of $+2.5\%$ is defined to be a jump of $size = 1$, $+5\%$ $size = 2$ and so on so forth; on the other side, a $-2.5\%$ is of $size = -1$, $-5\%$ $size = -2$ and so on.\par
+Then, starting from the already existing function, we decide to develop an algorithm that, starting from an historical time series of a stock, and, given the fact that we can use daily prices only (so that it is not possible to observe intraday jumps), it first computes jumps and theirs moments and then prices a European call option on the over mentioned underlying assuming a jump process. \par
+In order to analyse jumps in the time series, we build an algorithm that is basically a counter of non-ordinary price movements. A daily return of $+2.5\%$ is defined to be a jump of $size = 1$, $+5\%$ $size = 2$ and so on so forth; on the other side, a $-2.5\%$ is of $size = -1$, $-5\%$ $size = -2$ and so on.\par
 \begin{lstlisting}[caption = Jump Counter]
 jcount = NULL
 jcount[1] = 0
@@ -1626,12 +1576,12 @@ The pricing is performed as follows: first, we price a European Call option with
 	\end{aligned}
 	\end{equation}
 
-Then, the European call option price is given by the following formula:
+Then, the European call option price is given by the following formula \cite{merton75}:
 	\begin{equation}
 		JumpCall = \sum^{\infty}_{n=0} \frac{e^{-\lambda ' T}(\lambda ' T)^n}{n!} BS(S_0, \sigma_n, r_n, T, K)
 	\end{equation}
 
-where $v$ is the standard deviation of the lognormal jump process and $m$ is the scale factor for jump intensity.
+where $v$ is the standard deviation of the lognormal jump process and $m$ is the scale factor for jump intensity. In the appendix we give the proof of consistency of this approximation.
 \begin{lstlisting}[caption = Jump option price]
 #Pricing Formula
 callBSM = function(S, X, tau, r, q, sigma) {
@@ -1652,8 +1602,8 @@ JumpCall
 
 \end{lstlisting}
 
-Then, in order to control consistency of the application, we price the option with basic BS formula, with the built-in $callMerton$ function from NMOF package and with the over mentioned procedure: the results is that the European Call price is the same at 4-digits. \par
-Once introduced the Jump, it is clear that the riskiness of the call is higher with respect to BS model; thus, on many tested underlyings the "Jump call" cost more than the plain-vanilla call.
+Then, in order to control consistency of the application, we price the option with the built-in $callMerton$ function from $NMOF$ package and with the over mentioned procedure. \par
+Once introduced the Jump, it is clear that the riskiness of the call is higher with respect to BS model; thus, on many tested underlyings the "jump call" cost more than the plain-vanilla call.
 
 
 \newpage
@@ -1733,7 +1683,7 @@ The connection with fractal geometry is embedded in the \textit{Hurst exponent}:
 	\end{equation}
 	If a system were $iid$, then $H = 0.5$.
 
-	According to the original theory, $H=0.5$ would imply an independent process. $0 \leq H < 0.5$ means antipersistency. An antipersistent system covers less distance than a random one: for a system to cover less distance, it must reverse more often than a random one; it doesn't mean, however, that it is a mean-reverting process. $0.5 \leq H < 1$ implies a persistent time series which is characterized by long memory effect.
+	According to the original theory, $H=0.5$ would imply an independent process. $0 \leq H < 0.5$ means antipersistency. An antipersistent system covers less distance than a random one: for a system to cover less distance, it must reverse more often than a random one; it doesn't mean, however, that it is a mean-reverting process. $0.5 < H \leq 1$ implies a persistent time series which is characterized by long memory effect.
 	
 \subsubsection{How to perform and implement R/S analysis}
 R/S analysis is a data-intensive, yet simple, process. \par
@@ -1939,7 +1889,7 @@ H = as.numeric(reg$coefficients[2])
 	\end{enumerate}
 
 \subsection{Implementation}
-Once computed the Hurst exponent $H$ for the time series, we can develop the option pricing procedure in the fractals framework by starting from the Black-Scholes model. \par
+Once computed the Hurst exponent $H$ for the time series, we can develop the option pricing procedure in the fractal framework by starting from the Black-Scholes model. \par
 First of all, let's define some useful formulae. \par
 Consider a fractional Black-Sholes market in which the stock price satisfies, under the risk-neutral measure the equation:
 
@@ -2081,7 +2031,8 @@ The values are as on 2017-02-15. \par
 This work aimed to analyse the more famous option pricing models and to deliver a computational approach to them. \par
 Starting from the mathematics and from model theory, we develop a real-world connected algorithm with the scope of finding alternative methodologies to compute option expected values. \par 
 In addition we want to analyse an alternative market theory: fractal market hypothesis. \par
-The aim of analysing this alternative view is to approach the market in a way different from the classical one: in this framework the focus is on price movements and patterns which relate the theory with technical analysis. In our vision, this approach can be useful when we want to develop a short-term horizon option trading strategy.	\par
+The aim of analysing this alternative view is to approach the market in a way different from the classical one: in this framework the focus is on price movements and patterns which relate the theory with technical analysis. \par
+In our vision, this approach can be useful when we want to develop a short-term horizon option trading strategy: in this framework, an investor should take into account not only the fundamentals of a security, but also the market sentiment.	\par
 Finally, the overall objective is to conclude the MSc in finance by delivering a work in which core models and applications, financial-related arguments and personal attitudes are conveyed and explained.
 
 
